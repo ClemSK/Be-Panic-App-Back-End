@@ -1,7 +1,7 @@
 import express from 'express'
 import router from './config/router.js'
 import dotenv from 'dotenv'
-import connectDb from './db/helpers.js'
+import { connectDb } from './db/helpers.js'
 
 dotenv.config()
 
@@ -19,9 +19,7 @@ const startServer = async () => {
       console.log('API connected')
     })
   } catch (err) {
-    console.log(
-      'Something went wrong connecting to serrver: ' + process.env.PORT
-    )
+    console.log('Something went wrong connecting to server: ' + err)
   }
 }
 
