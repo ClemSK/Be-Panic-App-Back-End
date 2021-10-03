@@ -22,4 +22,8 @@ const productSchema = new mongoose.Schema({
   review: [reviewSchema],
 })
 
+productSchema.plugin(mongooseUniqueValidator)
+
+const Product = mongoose.model('Product', productSchema)
+
 export default Product
