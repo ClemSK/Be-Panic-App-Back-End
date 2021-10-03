@@ -8,4 +8,10 @@ router
   .get(productController.getAllProducts)
   .post(productController.createProduct)
 
+router
+  .route('/product/:id')
+  .get(productController.getSingleProduct)
+  .put(productController.updateProduct)
+  .delete(productController.deleteProduct)
+
 export default router

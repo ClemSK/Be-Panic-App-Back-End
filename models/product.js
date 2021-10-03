@@ -19,6 +19,11 @@ const productSchema = new mongoose.Schema({
   stockCount: { type: Number, required: true },
   productInfo: { type: String, required: true },
   itemDescription: { type: String, required: true },
+  image: {
+    height: { type: Number },
+    url: { type: String, required: true },
+    width: { type: Number },
+  },
   review: [reviewSchema],
 })
 
