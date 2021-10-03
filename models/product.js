@@ -19,4 +19,7 @@ const productSchema = new mongoose.Schema({
   stockCount: { type: Number, required: true },
   productInfo: { type: String, required: true },
   itemDescription: { type: String, required: true },
+  review: [reviewSchema],
 })
+
+export default Product
