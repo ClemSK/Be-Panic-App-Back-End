@@ -1,10 +1,13 @@
 import Product from '../models/product.js'
 import { productSeedData } from './productSeedData.js'
-// Once seed is created import helpers
+import { connectDb, disconnectDb, truncateDb } from './helpers.js'
 
 async function reviewSweep() {
   try {
-    // update once seed is created
+    await connectDb()
+    console.log('Connected')
+
+    const allProducts = await Product.find()
   } catch (err) {
     next()
   }
