@@ -42,6 +42,8 @@ async function seed() {
 
       console.log(`${product.length} movies added to the database`)
 
+      console.log(product)
+
       console.log('Good Bye')
     }
   } catch (err) {

@@ -1,6 +1,7 @@
 import express from 'express'
 import productController from '../controllers/productController.js'
 import userController from '../controllers/userController.js'
+import reviewController from '../controllers/reviewController.js'
 
 // middleware
 import secureRoute from '../middleware/secureRoute.js'
@@ -10,7 +11,7 @@ const Router = express.Router()
 
 Router.route('/product')
   .get(productController.getAllProducts)
-  .post(secureRoute, authRole('admin'), productController.createProduct)
+  .post(productController.createProduct)
 
 Router.route('/product/:id')
   .get(productController.getSingleProduct)
