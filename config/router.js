@@ -6,22 +6,27 @@ import userController from '../controllers/userController.js'
 import secureRoute from '../middleware/secureRoute.js'
 import { authRole } from '../middleware/rolePermission.js'
 
-const router = express.Router()
+const Router = express.Router()
 
-router
-  .route('/product')
+Router.route('/product')
   .get(productController.getAllProducts)
   .post(secureRoute, authRole('admin'), productController.createProduct)
 
-router
-  .route('/product/:id')
+Router.route('/product/:id')
   .get(productController.getSingleProduct)
   .put(productController.updateProduct)
   .delete(productController.deleteProduct)
 
+// Route for creating reviews
+Router.route('/product/:id/review').post(reviewController.createReview)
+
+Router.route('/product/:id/review/:reviewid')
+  .put(reviewController.updateReview) // will need to add secureRoute as this will be locked to customer
+  .delete(reviewController.deleteReview) // will need to add secureRoute as this will be locked to customer
+
 // register and login controller
-router.route('/register').post(userController.registerUser)
+Router.route('/register').post(userController.registerUser)
 
-router.route('/login').post(userController.loginUser)
+Router.route('/login').post(userController.loginUser)
 
-export default router
+export default Router
