@@ -25,6 +25,11 @@ const productSchema = new mongoose.Schema({
     width: { type: Number },
   },
   review: [reviewSchema],
+  createdBy: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true,
+  },
 })
 
 productSchema.plugin(mongooseUniqueValidator)
