@@ -21,6 +21,26 @@ async function getSingleProduct(req, res, next) {
   }
 }
 
+async function searchProducts(req, res, next) {
+  try {
+    const { q } = req.query
+    console.log('The search Q is: ', q)
+    const regex = new RegExp(q, 'i')
+
+    const query = Product.find()
+    query.where({
+      $or: [{ title: regex }, { description: regex }],
+    })
+
+    const products = await query
+
+    console.log('Search result for product is: ', products)
+    return res.status(200).json(products)
+  } catch (err) {
+    next(err)
+  }
+}
+
 async function createProduct(req, res, next) {
   try {
     const newProduct = await Product.create({
@@ -83,4 +103,5 @@ export default {
   createProduct,
   updateProduct,
   deleteProduct,
+  searchProducts,
 }
