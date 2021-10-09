@@ -9,7 +9,7 @@ import { authRole } from '../middleware/rolePermission.js'
 
 const Router = express.Router()
 
-Router.route('./search').get(productController.searchProducts)
+Router.route('/search').get(productController.searchProducts)
 
 Router.route('/product')
   .get(productController.getAllProducts)

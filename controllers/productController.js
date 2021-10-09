@@ -29,7 +29,12 @@ async function searchProducts(req, res, next) {
 
     const query = Product.find()
     query.where({
-      $or: [{ title: regex }, { description: regex }],
+      $or: [
+        { name: regex },
+        { category: regex },
+        { itemDescription: regex },
+        { productInfo: regex },
+      ],
     })
 
     const products = await query
