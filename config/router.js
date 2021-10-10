@@ -27,6 +27,8 @@ Router.route('/product/:id/review/:reviewid')
   .put(reviewController.updateReview) // will need to add secureRoute as this will be locked to customer
   .delete(reviewController.deleteReview) // will need to add secureRoute as this will be locked to customer
 
+// Router.route('/basket').put(productController.checkoutUpdateProduct)
+
 // register and login controller
 Router.route('/register').post(userController.registerUser)
 

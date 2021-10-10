@@ -1,8 +1,10 @@
 import Product from '../models/product.js'
+import { sendCheckoutEmail } from './emailHandler.js'
 
 async function getAllProducts(_req, res, next) {
   try {
     const product = await Product.find()
+    // sendCheckoutEmail()
     return res.status(200).json(product)
   } catch (err) {
     next(err)
@@ -65,7 +67,7 @@ async function updateProduct(req, res, next) {
 
   try {
     const product = await Product.findById(id)
-
+    sendCheckoutEmail()
     if (!product) {
       return res.status(401).send({ message: 'Product not found' })
     }
@@ -83,6 +85,33 @@ async function updateProduct(req, res, next) {
     next(err)
   }
 }
+
+// async function checkoutUpdateProduct(req, res, next) {
+//   const { id } = req.params
+//   const { body } = req
+
+//   try {
+//     const product = await Product.findById(id)
+//     // main() - this is where the emails are getting send from
+//     sendCheckoutEmail()
+
+//     if (!product) {
+//       return res.status(401).send({ message: 'Product not found' })
+//     }
+
+//     //   can add in user id for giving admin permission for updating
+
+//     // if there are linked products like with actors and movies we can add it here
+//     // with the updateMany
+
+//     product.set(req.body)
+//     const savedProduct = product.save()
+
+//     res.status(200).json(product)
+//   } catch (err) {
+//     next(err)
+//   }
+// }
 
 async function deleteProduct(req, res, next) {
   const { id } = req.params
@@ -109,4 +138,5 @@ export default {
   updateProduct,
   deleteProduct,
   searchProducts,
+  //   checkoutUpdateProduct,
 }
