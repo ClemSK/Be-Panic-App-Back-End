@@ -18,15 +18,15 @@ export async function sendCheckoutEmail() {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: 'st.ealmail.ing@gmail.com',
+      user: process.env.NODEMAILER_EMAIL_1,
       pass: process.env.PASS, // .env for password
     },
   })
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <clemskyn@gmail.com>', // sender address
-    to: 'st.ealmail.ing@gmail.com', // list of receivers
+    from: process.env.NODEMAILER_EMAIL_2, // sender address
+    to: process.env.NODEMAILER_EMAIL_1, // list of receivers
     subject: 'Confirmation Email', // Subject line
     text: 'Your order is being shipped',
     html: '<b>Your order is being shipped</b>', // html body
