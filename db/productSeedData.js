@@ -110,7 +110,7 @@ export const productSeedData = [
       'These days dry food is hard to come by so we-ve mixed rice/pasta/beans to bulk up any meal, especially good with canned food',
     image: {
       height: 300,
-      url: 'https://al-isnad.kz/wp-content/uploads/2015/07/a29.jpg',
+      url: 'https://recycleforgreatermanchester.com/wp-content/uploads/2017/03/Rice-pasta-and-beans.jpg',
       width: 300,
     },
     review: {

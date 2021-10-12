@@ -1,10 +1,11 @@
 import Product from '../models/product.js'
-import { sendCheckoutEmail } from './emailHandler.js'
+import { sendCheckoutEmail, sendRegisteredEmail } from './emailHandler.js'
 
 async function getAllProducts(_req, res, next) {
   try {
     const product = await Product.find()
     // sendCheckoutEmail()
+    // sendRegisteredEmail()
     return res.status(200).json(product)
   } catch (err) {
     next(err)
@@ -54,6 +55,7 @@ async function createProduct(req, res, next) {
       ...req.body,
       createdBy: req.currentUser,
     })
+    sendCheckoutEmail()
     // here we can put the updateMany if needed
     return res.status(201).send(newProduct)
   } catch (err) {
@@ -67,7 +69,6 @@ async function updateProduct(req, res, next) {
 
   try {
     const product = await Product.findById(id)
-    sendCheckoutEmail()
     if (!product) {
       return res.status(401).send({ message: 'Product not found' })
     }
@@ -78,7 +79,8 @@ async function updateProduct(req, res, next) {
     // with the updateMany
 
     product.set(req.body)
-    const savedProduct = product.save()
+    const savedProduct = await product.save()
+    // sendCheckoutEmail()
 
     res.status(200).json(product)
   } catch (err) {
