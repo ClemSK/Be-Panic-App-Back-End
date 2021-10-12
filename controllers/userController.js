@@ -34,9 +34,13 @@ async function loginUser(req, res, next) {
     }
 
     // making a n access token
-    const token = jwt.sign({ userId: user._id }, process.env.SECRET, {
-      expiresIn: '12h',
-    })
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.SECRET,
+      {
+        expiresIn: '12h',
+      }
+    )
 
     return res.status(200).send({
       token,

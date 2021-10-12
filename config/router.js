@@ -1,7 +1,11 @@
 import express from 'express'
+
+// controller
 import productController from '../controllers/productController.js'
 import userController from '../controllers/userController.js'
 import reviewController from '../controllers/reviewController.js'
+import superAdminController from '../controllers/adminControllers/superAdminControllers.js'
+import adminController from '../controllers/adminControllers/adminController.js'
 
 // middleware
 import secureRoute from '../middleware/secureRoute.js'
@@ -11,21 +15,44 @@ const Router = express.Router()
 
 Router.route('./search').get(productController.searchProducts)
 
+// Route for products
 Router.route('/product')
   .get(productController.getAllProducts)
-  .post(productController.createProduct)
+  .post(secureRoute, authRole('admin'), productController.createProduct)
 
 Router.route('/product/:id')
   .get(productController.getSingleProduct)
-  .put(productController.updateProduct)
-  .delete(productController.deleteProduct)
+  .put(secureRoute, authRole('admin'), productController.updateProduct)
+  .delete(secureRoute, authRole('admin'), productController.deleteProduct)
 
-// Route for creating reviews
-Router.route('/product/:id/review').post(reviewController.createReview)
+// Route for reviews
+Router.route('/product/:id/review').post(
+  secureRoute,
+  authRole('basic'),
+  reviewController.createReview
+)
 
-Router.route('/product/:id/review/:reviewid')
-  .put(reviewController.updateReview) // will need to add secureRoute as this will be locked to customer
-  .delete(reviewController.deleteReview) // will need to add secureRoute as this will be locked to customer
+Router.route('/product/:id/review/:reviewId')
+  .put(secureRoute, authRole('basic'), reviewController.updateReview) // will need to add secureRoute as this will be locked to customer
+  .delete(secureRoute, authRole('basic'), reviewController.deleteReview) // will need to add secureRoute as this will be locked to customer
+
+// Route for super admin controller
+Router.route('/superAdmin').get(
+  secureRoute,
+  authRole('super admin'),
+  superAdminController.getAllUser
+)
+
+Router.route('/superAdmin/:id')
+  .get(secureRoute, authRole('super admin'), superAdminController.getSingleUser)
+  .delete(secureRoute, authRole('super admin'), superAdminController.deleteUser)
+
+// Route for admin to get access to the products
+Router.route('/admin/product').get(
+  secureRoute,
+  authRole('admin'),
+  adminController.getSellerProduct
+)
 
 // register and login controller
 Router.route('/register').post(userController.registerUser)

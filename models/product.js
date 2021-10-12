@@ -1,16 +1,21 @@
 import mongoose from 'mongoose'
 import mongooseUniqueValidator from 'mongoose-unique-validator'
 
-const reviewSchema = new mongoose.Schema({
-  title: { type: String, required: true, maxlength: 50 },
-  text: { type: String, required: true, maxlength: 400 },
-  rating: { type: Number, required: true, min: 1, max: 5 },
-  createdBy: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User',
-    required: true,
+const reviewSchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true, maxlength: 50 },
+    text: { type: String, required: true, maxlength: 400 },
+    rating: { type: Number, required: true, min: 1, max: 5 },
+    createdBy: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
-})
+  {
+    timestamps: true,
+  }
+)
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
   category: { type: String, required: true },

@@ -2,8 +2,15 @@ import Product from '../models/product.js'
 
 async function getAllProducts(_req, res, next) {
   try {
-    const product = await Product.find()
-    return res.status(200).json(product)
+    const products = await Product.find()
+
+    if (!products) {
+      return res.status(404).send({
+        message: 'Products not found',
+      })
+    }
+
+    return res.status(200).json(products)
   } catch (err) {
     next(err)
   }
@@ -14,6 +21,12 @@ async function getSingleProduct(req, res, next) {
 
   try {
     const singleProduct = await Product.findById(id)
+
+    if (!singleProduct) {
+      return res.status(404).send({
+        message: 'Product not found',
+      })
+    }
 
     return res.send(singleProduct)
   } catch (err) {
@@ -41,12 +54,14 @@ async function searchProducts(req, res, next) {
   }
 }
 
+// only admin able to create product
 async function createProduct(req, res, next) {
   try {
     const newProduct = await Product.create({
       ...req.body,
       createdBy: req.currentUser,
     })
+
     // here we can put the updateMany if needed
     return res.status(201).send(newProduct)
   } catch (err) {
@@ -65,15 +80,20 @@ async function updateProduct(req, res, next) {
       return res.status(401).send({ message: 'Product not found' })
     }
 
-    //   can add in user id for giving admin permission for updating
+    // this is checking to make sure only the creator can edit the profile
+    if (!product.createdBy.equals(req.currentUser._id)) {
+      return res
+        .status(403)
+        .send({ message: 'You are not authorized to perform the task.' })
+    }
 
-    // if there are linked products like with actors and movies we can add it here
-    // with the updateMany
+    // setting the user input data
+    product.set(body)
 
-    product.set(req.body)
-    const savedProduct = product.save()
+    // saving the data
+    const savedProduct = await product.save()
 
-    res.status(200).json(product)
+    return res.status(200).json(savedProduct)
   } catch (err) {
     next(err)
   }
@@ -89,9 +109,22 @@ async function deleteProduct(req, res, next) {
       return res.status(401).send({ message: 'Product does not exist' })
     }
 
+    // checking only creator can delete the product and the super admin
+    if (
+      !product.createdBy.equals(req.currentUser._id) &&
+      req.currentUser.role !== 'super admin'
+    ) {
+      return res
+        .status(403)
+        .send({ message: 'You are not authorized to perform the task.' })
+    }
+
+    // removing product
     await product.remove()
 
-    return res.status(200).json(product)
+    return res.status(200).send({
+      message: 'Product removed',
+    })
   } catch (err) {
     next(err)
   }

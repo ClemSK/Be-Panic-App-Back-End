@@ -37,9 +37,7 @@ userSchema.methods.validatePassword = function (password) {
 
 userSchema.plugin(mongooseUniqueValidator)
 
-userSchema.plugin(
-  mongooseHidden({ defaultHidden: { password: true, email: true } })
-)
+userSchema.plugin(mongooseHidden({ defaultHidden: { password: true } }))
 
 const User = mongoose.model('User', userSchema)
 

@@ -7,23 +7,24 @@ async function createReview(req, res, next) {
   const { id } = req.params
 
   try {
-    const products = await Product.findById(id)
+    const product = await Product.findById(id)
 
     if (!product) {
-      return res.status(404).send({ message: 'Not found' })
+      return res.status(404).send({ message: 'Product not found' })
     }
 
     // Create a variable to the new review that spreads in req.body, and includes the users information
     const newReview = {
-      ...req.body,
+      ...reviewData,
       createdBy: req.currentUser,
     }
 
-    product.reviews.push(reviewData)
+    // psuhing the new review into the array
+    product.review.push(newReview)
 
-    const savedProduct = await product.save()
+    await product.save()
 
-    res.send(savedProduct)
+    res.status(201).send(product)
   } catch (err) {
     next(err)
   }
@@ -37,18 +38,24 @@ async function updateReview(req, res, next) {
     const product = await Product.findById(id)
 
     if (!product) {
-      return res.status(404).send({ message: 'Not found' })
+      return res.status(404).send({ message: 'Product not found' })
     }
 
-    if (!review.createdBy.equals(req.currentUser._id)) {
+    const OneReview = product.review.id(reviewId)
+
+    if (!OneReview) {
+      return res.status(404).send({
+        message: 'Review not found',
+      })
+    }
+
+    if (!OneReview.createdBy.equals(req.currentUser._id)) {
       return res
         .status(401)
         .send({ message: 'You are not authorized to take this action' })
     }
 
-    const review = product.reviews.id(reviewId)
-
-    review.set(req.body)
+    OneReview.set(req.body)
 
     const savedProduct = await product.save()
 
@@ -69,15 +76,25 @@ async function deleteReview(req, res, next) {
       return res.status(404).send({ message: 'Not found' })
     }
 
-    if (!review.createdBy.equals(req.currentUser._id)) {
+    // getting specifc review
+    const OneReview = product.review.id(reviewId)
+
+    if (!OneReview) {
+      return res.status(404).send({
+        message: 'Review not found',
+      })
+    }
+
+    if (
+      !OneReview.createdBy.equals(req.currentUser._id) &&
+      req.currentUser.role !== 'super admin'
+    ) {
       return res
         .status(401)
         .send({ message: 'You are not authorized to take this action' })
     }
 
-    const review = product.reviews.id(reviewId)
-
-    review.remove()
+    OneReview.remove()
 
     const savedProduct = await product.save()
 
