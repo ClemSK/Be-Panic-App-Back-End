@@ -1,7 +1,9 @@
 import Product from '../models/product.js'
+import { sendCheckoutEmail } from './emailHandler.js'
 
 async function getAllProducts(_req, res, next) {
   try {
+<<<<<<< HEAD
     const products = await Product.find()
 
     if (!products) {
@@ -11,6 +13,11 @@ async function getAllProducts(_req, res, next) {
     }
 
     return res.status(200).json(products)
+=======
+    const product = await Product.find()
+    // sendCheckoutEmail()
+    return res.status(200).json(product)
+>>>>>>> 7f20f72b18c20155abc00d6fa91d8eecfe8db47a
   } catch (err) {
     next(err)
   }
@@ -42,7 +49,12 @@ async function searchProducts(req, res, next) {
 
     const query = Product.find()
     query.where({
-      $or: [{ title: regex }, { description: regex }],
+      $or: [
+        { name: regex },
+        { category: regex },
+        { itemDescription: regex },
+        { productInfo: regex },
+      ],
     })
 
     const products = await query
@@ -75,7 +87,7 @@ async function updateProduct(req, res, next) {
 
   try {
     const product = await Product.findById(id)
-
+    sendCheckoutEmail()
     if (!product) {
       return res.status(401).send({ message: 'Product not found' })
     }
@@ -98,6 +110,33 @@ async function updateProduct(req, res, next) {
     next(err)
   }
 }
+
+// async function checkoutUpdateProduct(req, res, next) {
+//   const { id } = req.params
+//   const { body } = req
+
+//   try {
+//     const product = await Product.findById(id)
+//     // main() - this is where the emails are getting send from
+//     sendCheckoutEmail()
+
+//     if (!product) {
+//       return res.status(401).send({ message: 'Product not found' })
+//     }
+
+//     //   can add in user id for giving admin permission for updating
+
+//     // if there are linked products like with actors and movies we can add it here
+//     // with the updateMany
+
+//     product.set(req.body)
+//     const savedProduct = product.save()
+
+//     res.status(200).json(product)
+//   } catch (err) {
+//     next(err)
+//   }
+// }
 
 async function deleteProduct(req, res, next) {
   const { id } = req.params
@@ -137,4 +176,5 @@ export default {
   updateProduct,
   deleteProduct,
   searchProducts,
+  //   checkoutUpdateProduct,
 }

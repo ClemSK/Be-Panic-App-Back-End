@@ -13,7 +13,7 @@ import { authRole } from '../middleware/rolePermission.js'
 
 const Router = express.Router()
 
-Router.route('./search').get(productController.searchProducts)
+Router.route('/search').get(productController.searchProducts)
 
 // Route for products
 Router.route('/product')
@@ -53,6 +53,8 @@ Router.route('/admin/product').get(
   authRole('admin'),
   adminController.getSellerProduct
 )
+
+// Router.route('/basket').put(productController.checkoutUpdateProduct)
 
 // register and login controller
 Router.route('/register').post(userController.registerUser)

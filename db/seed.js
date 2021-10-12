@@ -40,7 +40,7 @@ async function seed() {
       // adding seed data into the database
       const product = await Product.create(newProductSeed)
 
-      console.log(`${product.length} movies added to the database`)
+      console.log(`${product.length} product added to the database`)
 
       console.log(product)
 

@@ -33,7 +33,12 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.8",
     "mongoose-hidden": "^1.9.1",
+<<<<<<< HEAD
     "mongoose-unique-validator": "^2.0.3",
+=======
+    "mongoose-unique-validator": "^2.0.4",
+    "nodemailer": "^6.6.5",
+>>>>>>> 7f20f72b18c20155abc00d6fa91d8eecfe8db47a
     "nodemon": "^2.0.13"
   }
 }
