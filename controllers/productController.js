@@ -3,7 +3,6 @@ import { sendCheckoutEmail } from './emailHandler.js'
 
 async function getAllProducts(_req, res, next) {
   try {
-<<<<<<< HEAD
     const products = await Product.find()
 
     if (!products) {
@@ -13,11 +12,6 @@ async function getAllProducts(_req, res, next) {
     }
 
     return res.status(200).json(products)
-=======
-    const product = await Product.find()
-    // sendCheckoutEmail()
-    return res.status(200).json(product)
->>>>>>> 7f20f72b18c20155abc00d6fa91d8eecfe8db47a
   } catch (err) {
     next(err)
   }

@@ -32,8 +32,42 @@ export async function sendCheckoutEmail() {
     html: '<b>Your order is being shipped</b>', // html body
   })
 
-  console.log('Message sent: %s', info.messageId)
+  console.log('Checkout message sent: %s', info.messageId)
 }
 
 // sends email and catches error message if needed
 // sendCheckoutEmail().catch(console.error)
+
+export async function sendRegisteredEmail() {
+  // Generate test SMTP service account from ethereal.email
+  // Only needed if you don't have a real mail account for testing
+  let testAccount = await nodemailer.createTestAccount()
+
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: process.env.NODEMAILER_EMAIL_1,
+      pass: process.env.PASS, // .env for password
+    },
+  })
+
+  // send mail with defined transport object
+  let info = await transporter.sendMail({
+    from: process.env.NODEMAILER_EMAIL_2, // sender address
+    to: process.env.NODEMAILER_EMAIL_1, // list of receivers
+    subject: 'Thanks for registering', // Subject line
+    text: 'You have now joined the platform',
+    html: '<b>You have now registered an account</b>', // html body
+  })
+
+  console.log('Registered message sent: %s', info.messageId)
+}
+
+const transporter = nodemailer.createTransport(
+  'smtps://user%40gmail.com:pass@smtp.gmail.com'
+)
+
+// create template based sender function

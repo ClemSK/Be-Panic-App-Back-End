@@ -27,18 +27,15 @@
   },
   "homepage": "https://github.com/shawn-ng/Be-Panic-App-Back-End#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.8",
+    "mongoose": "^5.13.6",
     "mongoose-hidden": "^1.9.1",
-<<<<<<< HEAD
     "mongoose-unique-validator": "^2.0.3",
-=======
-    "mongoose-unique-validator": "^2.0.4",
-    "nodemailer": "^6.6.5",
->>>>>>> 7f20f72b18c20155abc00d6fa91d8eecfe8db47a
+    "nodemailer": "^6.7.0",
     "nodemon": "^2.0.13"
   }
 }
