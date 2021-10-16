@@ -53,7 +53,6 @@ async function searchProducts(req, res, next) {
 
     const products = await query
 
-    console.log('Search result for product is: ', products)
     return res.status(200).json(products)
   } catch (err) {
     next(err)
