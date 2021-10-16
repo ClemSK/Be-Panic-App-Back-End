@@ -38,7 +38,7 @@ async function getSingleProduct(req, res, next) {
 async function searchProducts(req, res, next) {
   try {
     const { q } = req.query
-    console.log('The search Q is: ', q)
+
     const regex = new RegExp(q, 'i')
 
     const query = Product.find()
@@ -86,13 +86,6 @@ async function updateProduct(req, res, next) {
       return res.status(401).send({ message: 'Product not found' })
     }
 
-    // this is checking to make sure only the creator can edit the profile
-    if (!product.createdBy.equals(req.currentUser._id)) {
-      return res
-        .status(403)
-        .send({ message: 'You are not authorized to perform the task.' })
-    }
-
     // setting the user input data
     product.set(body)
 
@@ -104,33 +97,6 @@ async function updateProduct(req, res, next) {
     next(err)
   }
 }
-
-// async function checkoutUpdateProduct(req, res, next) {
-//   const { id } = req.params
-//   const { body } = req
-
-//   try {
-//     const product = await Product.findById(id)
-//     // main() - this is where the emails are getting send from
-//     sendCheckoutEmail()
-
-//     if (!product) {
-//       return res.status(401).send({ message: 'Product not found' })
-//     }
-
-//     //   can add in user id for giving admin permission for updating
-
-//     // if there are linked products like with actors and movies we can add it here
-//     // with the updateMany
-
-//     product.set(req.body)
-//     const savedProduct = product.save()
-
-//     res.status(200).json(product)
-//   } catch (err) {
-//     next(err)
-//   }
-// }
 
 async function deleteProduct(req, res, next) {
   const { id } = req.params

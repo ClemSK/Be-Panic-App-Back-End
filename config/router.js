@@ -22,7 +22,7 @@ Router.route('/product')
 
 Router.route('/product/:id')
   .get(productController.getSingleProduct)
-  .put(secureRoute, authRole('admin'), productController.updateProduct)
+  .put(secureRoute, authRole('basic'), productController.updateProduct)
   .delete(secureRoute, authRole('admin'), productController.deleteProduct)
 
 // Route for reviews
