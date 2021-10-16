@@ -70,7 +70,7 @@ export const productSeedData = [
       'A barrel of fuel for when the world runs low, helpful in an apocalypse or embargo',
     image: {
       height: 300,
-      url: 'https://www.therange.co.uk/_m3/5/7/1592560762_2_6724.jpg',
+      url: 'https://media.istockphoto.com/photos/oil-spilling-from-red-barrel-onto-floor-picture-id157331125?k=20&m=157331125&s=612x612&w=0&h=K7z_TfRLvCz8taP3nwZf-12vlfOOgeKH_rAUqK5Tp3k=',
       width: 300,
     },
     review: {
@@ -110,7 +110,7 @@ export const productSeedData = [
       'These days dry food is hard to come by so we-ve mixed rice/pasta/beans to bulk up any meal, especially good with canned food',
     image: {
       height: 300,
-      url: 'https://recycleforgreatermanchester.com/wp-content/uploads/2017/03/Rice-pasta-and-beans.jpg',
+      url: 'https://previews.123rf.com/images/arayabandit/arayabandit1603/arayabandit160300015/53423480-foods-high-in-carbohydrate-raw-pasta-rice-peanuts-and-mung-beans-in-plastic-measuring-spoons-.jpg',
       width: 300,
     },
     review: {
