@@ -39,7 +39,7 @@ Router.route('/product/:id/review/:reviewId')
 // Route for super admin controller
 Router.route('/superAdmin').get(
   secureRoute,
-  authRole('super admin'),
+  //   authRole('super admin'),
   superAdminController.getAllUser
 )
 

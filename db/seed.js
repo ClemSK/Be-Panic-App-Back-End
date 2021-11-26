@@ -26,7 +26,7 @@ async function seed() {
 
     //this is to find the super admin in the databases
     const findUser = await User.findOne({ email: 'nghengdi@gmail.com' })
-
+    console.log(findUser)
     // this part is to add the seeds data to have the createdby part
     const newProductSeed = productSeedData.map((seed) => {
       return {

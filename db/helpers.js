@@ -7,6 +7,7 @@ export const connectDb = () => {
 export const truncateDb = () => {
   if (mongoose.connection.readState !== 0) {
     const { collections } = mongoose.connection
+    console.log('attempting to drop db', collections)
 
     const promises = Object.keys(collections).map((collection) =>
       mongoose.connection.collection(collection).deleteMany({})
