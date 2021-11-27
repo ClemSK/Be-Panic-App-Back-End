@@ -1,12 +1,13 @@
 import express from 'express'
 import router from './config/router.js'
 import dotenv from 'dotenv'
+import cors from 'cors'
 import { connectDb } from './db/helpers.js'
 
 dotenv.config()
 
 const app = express()
-
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/api', router)
