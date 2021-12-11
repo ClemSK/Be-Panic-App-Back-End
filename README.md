@@ -1,7 +1,5 @@
 # Be-Panic-App-Back-End
 
-- this is cool
-
 ## Developing the idea
 
 - idea for an e-commerce shop
@@ -82,3 +80,4 @@ Payments page:
 
 - establish
 - add middleware for secureRoute
+
