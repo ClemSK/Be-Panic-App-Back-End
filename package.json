@@ -1,0 +1,42 @@
+{
+  "name": "be-panic-app-back-end",
+  "version": "1.0.0",
+  "description": "back-end-of-panic-app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "npx nodemon index.js",
+    "seed": "node db/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shawn-ng/Be-Panic-App-Back-End.git"
+  },
+  "keywords": [
+    "ecommerce",
+    "panic",
+    "buying",
+    "app"
+  ],
+  "author": "Clement Seconde-Kynnersley Lillian Monza Heng Ng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shawn-ng/Be-Panic-App-Back-End/issues"
+  },
+  "homepage": "https://github.com/shawn-ng/Be-Panic-App-Back-End#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.6",
+    "mongoose-hidden": "^1.9.1",
+    "mongoose-unique-validator": "^2.0.3",
+    "nodemailer": "^6.7.0",
+    "nodemon": "^2.0.13"
+  }
+}
